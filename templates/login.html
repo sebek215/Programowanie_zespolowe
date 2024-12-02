@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartHome - Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="login-bg">
+    <div class="screen">
+        <div class="header">
+            <h1>SmartHome</h1>
+            <p>Control your home at your fingertips.</p>
+        </div>
+        <div class="form-container">
+            <h2>Login</h2>
+            <form method="post" action="/login">
+                <input type="text" name="username" placeholder="Username" required><br>
+                <input type="password" name="password" placeholder="Password" required><br>
+                <button type="submit">Login</button>
+            </form>
+            <p>Don't have an account? <a href="/register">Register here</a></p>
+        </div>
+        {% if request.query_params.get('error') %}
+        <p class="error">{{ request.query_params.get('error') }}</p>
+        {% endif %}
+        {% if request.query_params.get('success') %}
+        <p class="success">{{ request.query_params.get('success') }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

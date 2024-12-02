@@ -1,0 +1,120 @@
+/* General body styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Smartphone screen simulation */
+.screen {
+    width: 360px; /* Smartphone width */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Header styles */
+.header h1 {
+    font-size: 24px;
+    color: #4CAF50;
+}
+
+.header p {
+    font-size: 14px;
+    color: #666;
+}
+
+/* Form styles */
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="password"] {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 90%;
+}
+
+button:hover {
+    background: #45a049;
+}
+
+.logout-button {
+    background: #f44336;
+}
+
+.logout-button:hover {
+    background: #e53935;
+}
+
+/* Devices list */
+.devices-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.devices-container li {
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add-device {
+    margin-top: 20px;
+}
+
+.remove-button {
+    background: #f44336;
+    padding: 5px 10px;
+}
+
+.remove-button:hover {
+    background: #e53935;
+}
+
+/* Error and success messages */
+.error {
+    color: #f44336;
+    text-align: center;
+}
+
+.success {
+    color: #4CAF50;
+    text-align: center;
+}
+
+/* Background images for themes */
+body.login-bg {
+    background-image: url('/static/login-bg.jpg'); /* Add your futuristic login image here */
+}
+
+body.register-bg {
+    background-image: url('/static/register-bg.jpg'); /* Add your futuristic register image here */
+}
+
+body.home-bg {
+    background-image: url('/static/home-bg.jpg'); /* Add your futuristic home dashboard image here */
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartHome - Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="home-bg">
+    <div class="screen">
+        <div class="header">
+            <h1>Welcome, {{ username }}</h1>
+            <p>Your Smart Home Dashboard</p>
+            <form method="get" action="/">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </div>
+        <div class="devices-container">
+            <h2>Your Devices</h2>
+            <ul>
+                {% for device in devices %}
+                <li>
+                    {{ device[0] }}
+                    <form method="post" action="/remove_device" style="display: inline;">
+                        <input type="hidden" name="username" value="{{ username }}">
+                        <input type="hidden" name="device_name" value="{{ device[0] }}">
+                        <button type="submit" class="remove-button">Remove</button>
+                    </form>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="add-device">
+            <h2>Add New Device</h2>
+            <form method="post" action="/add_device">
+                <input type="hidden" name="username" value="{{ username }}">
+                <input type="text" name="device_name" placeholder="Device Name" required><br>
+                <button type="submit">Add Device</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
