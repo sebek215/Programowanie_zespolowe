@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SmartHome - Solar Analysis</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="solar-bg">
+    <div class="screen">
+        <div class="header">
+            <h1>Solar Analysis</h1>
+            <p>Enter an address to check solar data for the area.</p>
+        </div>
+        <div class="form-container">
+            <form method="post" action="/get-solar-data">
+                <input type="text" name="address" placeholder="Enter Address" required><br>
+                <button type="submit">Get Solar Data</button>
+            </form>
+        </div>
+        {% if metadata or geotiff_data or hourly_shade_data %}
+        <div class="solar-data-container">
+            <h2>Solar Data Results</h2>
+
+            <!-- Metadata Section -->
+            {% if metadata %}
+            <div class="metadata">
+                <h3>Metadata</h3>
+                <ul>
+                    <li>Imagery Date: {{ metadata["Imagery Date"] }}</li>
+                    <li>Processed Date: {{ metadata["Processed Date"] }}</li>
+                    <li>Imagery Quality: {{ metadata["Imagery Quality"] }}</li>
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- GeoTIFF Links -->
+            {% if geotiff_data %}
+            <div class="geotiff-links">
+                <h3>GeoTIFF Downloads</h3>
+                <ul>
+                    {% for key, url in geotiff_data.items() %}
+                        <li><a href="{{ url }}" target="_blank">{{ key }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
+            <!-- Hourly Shade Data -->
+            {% if hourly_shade_data %}
+            <div class="hourly-shade">
+                <h3>Hourly Shade Data</h3>
+                <ul>
+                    {% for url in hourly_shade_data %}
+                        <li><a href="{{ url }}" target="_blank">Download Hourly Shade Data</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

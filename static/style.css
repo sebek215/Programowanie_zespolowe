@@ -118,3 +118,28 @@ body.register-bg {
 body.home-bg {
     background-image: url('/static/home-bg.jpg'); /* Add your futuristic home dashboard image here */
 }
+
+body.solar-bg {
+    background-image: url('/static/solar-bg.jpg'); /* Add a solar-themed image here */
+    background-size: cover;
+    background-position: center;
+}
+
+.solar-analysis .special-button {
+    background: #ff9800;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.solar-analysis .special-button:hover {
+    background: #f57c00;
+}
+
+.result-container {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
