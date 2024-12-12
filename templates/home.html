@@ -13,21 +13,37 @@
                 <button type="submit" class="logout-button">Logout</button>
             </form>
         </div>
+
         <div class="devices-container">
             <h2>Your Devices</h2>
-            <ul>
-                {% for device in devices %}
-                <li>
-                    {{ device[0] }}
+
+            {% for device in devices %}
+            <div class="device-card">
+                <div class="device-header">
+                    <h3>{{ device[0] }}</h3>
                     <form method="post" action="/remove_device" style="display: inline;">
                         <input type="hidden" name="username" value="{{ username }}">
                         <input type="hidden" name="device_name" value="{{ device[0] }}">
                         <button type="submit" class="remove-button">Remove</button>
                     </form>
-                </li>
-                {% endfor %}
-            </ul>
+                </div>
+
+                <div class="device-info">
+                    <p><strong>Energy Usage:</strong> {{ device[2] if device[2] else 'N/A' }} kWh</p>
+                    <p><strong>Uptime:</strong> {{ device[3] if device[3] else 'N/A' }}</p>
+
+                    <label for="device-{{ loop.index }}-slider"><strong>Power Control</strong></label>
+                    <input type="range" id="device-{{ loop.index }}-slider" name="power-level" min="0" max="100" class="device-slider">
+
+                    <p><strong>Schedule:</strong> 
+                        <span>08:00 AM - 10:00 PM</span> <!-- Placeholder schedule -->
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+
         </div>
+
         <div class="add-device">
             <h2>Add New Device</h2>
             <form method="post" action="/add_device">
@@ -36,6 +52,7 @@
                 <button type="submit">Add Device</button>
             </form>
         </div>
+
         <div class="solar-analysis">
             <h2>Solar Analysis</h2>
             <form method="get" action="/solar-check">
