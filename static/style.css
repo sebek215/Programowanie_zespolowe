@@ -1,9 +1,9 @@
-/* General body styles */
+/* === Ogólne style === */
 body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    color: #333;
+    color: #f5f5f5; /* Jasny tekst na ciemnym tle */
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
@@ -12,134 +12,327 @@ body {
     min-height: 100vh;
 }
 
-/* Smartphone screen simulation */
+/*górny panel z logo i opcjami */
+.optionP {
+    display: inline-flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: flex-start;
+align-content: space-between;
+}
+
+/* Symulacja ekranu urządzenia */
 .screen {
-    width: 360px; /* Smartphone width */
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
+    width: 360px;
+    margin-top: 65px;
+    padding: 0;
+    background: rgba(0, 238, 171, 1); /* Półprzezroczyste ciemne tło */
     border-radius: 16px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    
     text-align: center;
 }
 
-/* Header styles */
+/* === Nagłówki === */
 .header h1 {
-    font-size: 24px;
-    color: #4CAF50;
+    font-size: 26px;
+    color: #00ffcc; /* Neonowy turkusowy kolor nagłówka */
+    margin-bottom: 0px;
 }
 
 .header p {
     font-size: 14px;
-    color: #666;
+    color: #aaa; /* Jasnoszary dla podtytułu */
 }
 
-/* Form styles */
-form {
+/* === Logo === */
+.logo {
+    transform: scale(0.95);
+    transform-origin: center;
+    display: block;
+    margin: 0px auto;
+    max-width: 100%;
+    height: auto;
     margin-bottom: 20px;
+}
+
+.logo-container {
+    margin-right:  auto; /* Odstęp po lewej stronie dla logo */
+}
+
+/* === Formularze === */
+form {
+    margin: 10px 0;
+    
 }
 
 input[type="text"], input[type="password"] {
     width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #333;
+    border-radius: 6px;
+    background: #ffffff; /* Ciemne tło pola tekstowego */
+    color: #000000; /* Jasny tekst */
     box-sizing: border-box;
 }
 
+/* === Przycisk logowania/rejestracji === */
+
+
 button {
-    background: #4CAF50;
-    color: white;
+    background: #000000; /* Neonowy turkusowy */
+    color: #00ffcc; /* Kontrastujący ciemny tekst */
     border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
+    font-size: 16px;
+    padding: 12px 15px;
+    margin: 5px 0;
+    border-radius: 6px;
     cursor: pointer;
     width: 90%;
+    font-weight: bold;
+    transition: background 0.3s ease;
 }
 
 button:hover {
-    background: #45a049;
+    background: #3dffc5; /* Ciemniejszy odcień podczas najechania */
+    color: #000000;
 }
 
+/* === Przycisk wylogowania === */
 .logout-button {
-    background: #f44336;
+    background: #ff4444; /* Intensywna czerwień dla wylogowania */
 }
 
 .logout-button:hover {
-    background: #e53935;
+    background: #cc3333;
 }
 
-/* Devices list */
+/* === Lista urządzeń === */
 .devices-container ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .devices-container li {
-    margin: 10px 0;
+    margin: 12px 0;
     display: flex;
+    
     justify-content: space-between;
     align-items: center;
+    color: #000000;
+    border: 1px #00ffcc solid;
+    background: rgb(255, 255, 255);
+    border-radius: 6px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+/* Dodawanie urządzenia */
 .add-device {
-    margin-top: 20px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px #00ffcc solid;
+    background: rgb(255, 255, 255);
+    border-radius: 6px;
 }
 
 .remove-button {
-    background: #f44336;
-    padding: 5px 10px;
+    background: #ff4444; /* Intensywna czerwień dla usuwania urządzeń */
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background 0.3s ease;
 }
 
 .remove-button:hover {
-    background: #e53935;
+    background: #cc3333;
 }
 
-/* Error and success messages */
+/* === Wiadomości o błędach i sukcesach === */
 .error {
-    color: #f44336;
+    color: #ff4444; /* Czerwień dla błędów */
     text-align: center;
+    font-weight: bold;
 }
 
 .success {
-    color: #4CAF50;
+    color: #000000; /* Neonowy kolor dla sukcesów */
     text-align: center;
+    font-weight: bold;
 }
 
-/* Background images for themes */
+/* === Tła dla różnych stron === */
 body.login-bg {
-    background-image: url('/static/login-bg.jpg'); /* Add your futuristic login image here */
+    background-image: url('/static/login-bg.jpg'); /* Tło strony logowania */
+    background-color: rgba(61, 255, 197, 0.5); /* Półprzezroczysty kolor */
+    background-blend-mode: overlay; /* Mieszanie koloru tła z obrazem */
+    background-size: cover; /* Dopasowanie obrazu do wielkości elementu */
+    background-repeat: no-repeat; /* Brak powtórzeń obrazu */
 }
+
 
 body.register-bg {
-    background-image: url('/static/register-bg.jpg'); /* Add your futuristic register image here */
+    background-image: url('/static/register-bg.jpg'); /* Tło strony rejestracji */
+    background-color: rgba(61, 255, 197, 0.5); /* Półprzezroczysty kolor */
+    background-blend-mode: overlay; /* Mieszanie koloru tła z obrazem */
+    background-size: cover; /* Dopasowanie obrazu do wielkości elementu */
+    background-repeat: no-repeat; /* Brak powtórzeń obrazu */
 }
 
 body.home-bg {
-    background-image: url('/static/home-bg.jpg'); /* Add your futuristic home dashboard image here */
+    background-image: url('/static/home-bg.jpg'); /* Tło panelu głównego */
+    background-color: rgba(61, 255, 197, 0.5); /* Półprzezroczysty kolor */
+    background-blend-mode: overlay; /* Mieszanie koloru tła z obrazem */
+    background-size: cover; /* Dopasowanie obrazu do wielkości elementu */
+    background-repeat: no-repeat; /* Brak powtórzeń obrazu */
 }
 
 body.solar-bg {
-    background-image: url('/static/solar-bg.jpg'); /* Add a solar-themed image here */
+    background-image: url('/static/solar-bg.jpg'); /* Tło dla analizy słonecznej */
     background-size: cover;
     background-position: center;
 }
 
+/* === Przycisk analizy słonecznej === */
 .solar-analysis .special-button {
-    background: #ff9800;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 4px;
+    background: #ffcc00; /* Żółty kolor wyróżniający */
+    color: #111; /* Kontrastujący ciemny tekst */
+    padding: 12px 15px;
+    border-radius: 6px;
     font-size: 16px;
+    font-weight: bold;
+    transition: background 0.3s ease;
 }
 
 .solar-analysis .special-button:hover {
-    background: #f57c00;
+    background: #ff9900;
 }
 
+/* === Pojemnik wyników === */
 .result-container {
-    background: rgba(255, 255, 255, 0.8);
-    padding: 10px;
+    background: rgba(0, 0, 0, 0.8); /* Półprzezroczyste ciemne tło */
+    padding: 12px;
     border-radius: 8px;
     margin-top: 20px;
+    color: #f5f5f5; /* Jasny tekst */
 }
+
+/* === Linki w analizie słonecznej === */
+.solar-data-container a {
+    color: #00ffcc; /* Neonowy turkusowy */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.solar-data-container a:hover {
+    text-decoration: underline;
+}
+
+.separator {
+    border: none; /* Usunięcie domyślnego stylu */
+    height: 1px; /* Wysokość linii */
+    background-color: #000000; /* Kolor linii (zgodny z kolorystyką strony) */
+    margin: 20px 3%; /* Marginesy górny i dolny dla odstępu */
+}
+
+/* Styl dla górnego panelu */
+.top-panel {
+    display: flex; /* Umożliwia ułożenie elementów w wierszu */
+    justify-content: space-between; /* Rozmieszcza elementy z odstępem */
+    align-items: center; /* Wyrównanie elementów w pionie */
+    background-color: #00ffcc; /* Półprzezroczyste tło */
+    padding: 10px 20px; /* Wewnętrzne odstępy */
+    position: fixed; /* Utrzymuje panel na górze */
+    top: 0; /* Przylega do górnej krawędzi */
+    left: 0; /* Rozpoczyna od lewej krawędzi */
+    right: 0; /* Rozpoczyna do prawej krawędzi */
+    z-index: 1000; /* Ustawia wyższy indeks z-index, aby był na wierzchu */
+}
+
+
+.hauses-button {
+    display: flex;
+    width: 200px;
+    margin-block: auto;
+}
+.hausesdropdown {
+    position: absolute;
+    top: 67px; /* Dopasuj wysokość w zależności od panelu */
+    right: 0px; /* Dopasuj do pozycji przycisku */
+    background-color: #00ffcc;
+    
+    flex-direction: column; /* Układ pionowy */
+    z-index: 1000;
+    padding: 0; /* Brak wewnętrznych odstępów w kontenerze */
+    gap: 0; /* Brak odstępów między przyciskami */
+}
+
+
+
+
+/* Styl dla przycisku opcji */
+.options-button {
+    display: flex;
+    width: 100px;
+    margin-left: auto; /* Odstęp po prawej stronie dla przycisku */
+}
+
+.options-button:hover {
+    color: #000000;
+    background-color: #00ffcc; /* Kolor tła przycisku */
+    border: none; /* Bez obramowania */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Kursor wskazujący na przycisk */
+    font-weight: bold; /* Pogrubiona czcionka */
+}
+
+
+
+/* Styl dla rozwijanej listy */
+.dropdown {
+    position: absolute;
+    top: 67px; /* Dopasuj wysokość w zależności od panelu */
+    right: 0px; /* Dopasuj do pozycji przycisku */
+    background-color: #00ffcc;
+    
+    flex-direction: column; /* Układ pionowy */
+    z-index: 1000;
+    padding: 0; /* Brak wewnętrznych odstępów w kontenerze */
+    gap: 0; /* Brak odstępów między przyciskami */
+}
+
+.list-button {
+    background: #ffffff; /* Tło przycisku */
+    color: #000000; /* Tekst przycisku */
+    border: 1px solid #00ffcc; /* Obwódka */
+    margin: 0; /* Usuń marginesy między przyciskami */
+    padding: 10px; /* Padding wewnętrzny */
+    font-size: 16px; /* Rozmiar tekstu */
+    text-align: right; /* Wyrównanie tekstu do prawej */
+    border-radius: 0; /* Brak zaokrągleń */
+    cursor: pointer;
+    width: 100%; /* Pełna szerokość kontenera */
+    font-weight: bold; /* Pogrubienie tekstu */
+    transition: background 0.3s ease;
+    box-sizing: border-box; /* Uwzględnij padding i obwódkę w szerokości */
+}
+
+.list-button:hover {
+    background: #00ffcc; /* Kolor podświetlenia przycisku */
+}
+
+/* Ukryty dropdown */
+.hidden {
+    display: none;
+}
+
+
+
+
+
+

@@ -6,13 +6,14 @@
 </head>
 <body class="register-bg">
     <div class="screen">
-        <div class="header">
-            <h1>SmartHome</h1>
-            <p>Create your account to start managing your home devices.</p>
+         <!-- Logo i nagłówek -->
+         <div class="header" style="padding-top: 20px;">
+            <img src="/static/images/sunny-bunny-logo.png" alt="Sunny Bunny Logo" class="logo">
+            <hr class="separator">
         </div>
-        <div class="form-container">
-            <h2>Register</h2>
-            <form method="post" action="/register">
+        <div class="form-container" style="padding-bottom: 15px;">
+            
+            <form method="post" action="/register" >
                 <input type="text" name="username" placeholder="Username" required><br>
                 <input type="password" name="password" placeholder="Password" required><br>
                 <button type="submit">Register</button>
