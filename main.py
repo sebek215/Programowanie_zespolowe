@@ -16,8 +16,8 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # Replace with your Google API key
-GOOGLE_API_KEY = "1"
-GOOGLE_SOLAR_API_KEY = "1"
+GOOGLE_API_KEY = "AIzaSyAboIDReezqT3bAkS8w8nUV6X9IBRCa3K4"
+GOOGLE_SOLAR_API_KEY = "AIzaSyA0oYVrlCJUgO5pwlRcTcUeBroVlJhzojk"
 
 # File paths for user database
 USER_DB = "users_db.csv"
@@ -29,7 +29,9 @@ cursor.execute("""
 CREATE TABLE IF NOT EXISTS devices (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT NOT NULL,
-    device_name TEXT NOT NULL
+    device_name TEXT NOT NULL,
+    energy_usage REAL DEFAULT 0,  -- Energy in kWh
+    uptime TEXT DEFAULT '00:00'   -- Uptime in HH:MM format
 )
 """)
 conn.commit()
@@ -60,13 +62,13 @@ def register_user(username, password):
 # Routes
 @app.get("/", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request, "username": ""})  # Empty username as user is not logged in
 
 
 @app.post("/login", response_class=RedirectResponse)
 async def login(username: str = Form(...), password: str = Form(...)):
     if user_exists(username, password):
-        return RedirectResponse(url=f"/home/{username}", status_code=302)
+        return RedirectResponse(url=f"/home/{username}", status_code=302)  # Correctly redirects to home page
     return RedirectResponse(url="/?error=Invalid+credentials", status_code=302)
 
 
@@ -80,14 +82,24 @@ async def register(username: str = Form(...), password: str = Form(...)):
 
 @app.get("/home/{username}", response_class=HTMLResponse)
 async def home(request: Request, username: str):
-    cursor.execute("SELECT device_name FROM devices WHERE username = ?", (username,))
-    devices = cursor.fetchall()
-    return templates.TemplateResponse("home.html", {"request": request, "username": username, "devices": devices})
+    try:
+        cursor.execute("""
+            SELECT device_name, energy_usage, uptime FROM devices WHERE username = ?
+        """, (username,))
+        
+        devices = cursor.fetchall()
+        return templates.TemplateResponse("home.html", {"request": request, "username": username, "devices": devices})
+    except Exception as e:
+        return templates.TemplateResponse("home.html", {"request": request, "username": username, "devices": []})
+
 
 
 @app.post("/add_device", response_class=RedirectResponse)
 async def add_device(username: str = Form(...), device_name: str = Form(...)):
-    cursor.execute("INSERT INTO devices (username, device_name) VALUES (?, ?)", (username, device_name))
+    cursor.execute("""
+        INSERT INTO devices (username, device_name, energy_usage, uptime) 
+        VALUES (?, ?, 0, '00:00')
+    """, (username, device_name))
     conn.commit()
     return RedirectResponse(url=f"/home/{username}", status_code=302)
 
@@ -100,14 +112,14 @@ async def remove_device(username: str = Form(...), device_name: str = Form(...))
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
-    return templates.TemplateResponse("register.html", {"request": request})
+    return templates.TemplateResponse("register.html", {"request": request, "username": ""})
 
 @app.get("/solar-check", response_class=HTMLResponse)
-async def solar_check(request: Request):
-    return templates.TemplateResponse("solar_check.html", {"request": request})
+async def solar_check(request: Request, username: str):
+    return templates.TemplateResponse("solar_check.html", {"request": request, "username": username})
 
 
-@app.post("/solar-check", response_class=HTMLResponse)
+@app.post("/get-solar-data", response_class=HTMLResponse)
 async def get_solar_data(request: Request, address: str = Form(...)):
     try:
         # Step 1: Get Latitude and Longitude from Address
