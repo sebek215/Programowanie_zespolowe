@@ -19,6 +19,7 @@
             </form>
             <p>Don't have an account? <a href="/register">Register here</a></p>
         </div>
+        
         {% if request.query_params.get('error') %}
         <p class="error">{{ request.query_params.get('error') }}</p>
         {% endif %}

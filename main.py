@@ -62,13 +62,13 @@ def register_user(username, password):
 # Routes
 @app.get("/", response_class=HTMLResponse)
 async def login_page(request: Request):
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse("login.html", {"request": request, "username": ""})  # Empty username as user is not logged in
 
 
 @app.post("/login", response_class=RedirectResponse)
 async def login(username: str = Form(...), password: str = Form(...)):
     if user_exists(username, password):
-        return RedirectResponse(url=f"/home/{username}", status_code=302)
+        return RedirectResponse(url=f"/home/{username}", status_code=302)  # Correctly redirects to home page
     return RedirectResponse(url="/?error=Invalid+credentials", status_code=302)
 
 
@@ -82,11 +82,16 @@ async def register(username: str = Form(...), password: str = Form(...)):
 
 @app.get("/home/{username}", response_class=HTMLResponse)
 async def home(request: Request, username: str):
-    cursor.execute("""
-        SELECT device_name, energy_usage, uptime FROM devices WHERE username = ?
-    """, (username,))
-    devices = cursor.fetchall()
-    return templates.TemplateResponse("home.html", {"request": request, "username": username, "devices": devices})
+    try:
+        cursor.execute("""
+            SELECT device_name, energy_usage, uptime FROM devices WHERE username = ?
+        """, (username,))
+        
+        devices = cursor.fetchall()
+        return templates.TemplateResponse("home.html", {"request": request, "username": username, "devices": devices})
+    except Exception as e:
+        return templates.TemplateResponse("home.html", {"request": request, "username": username, "devices": []})
+
 
 
 @app.post("/add_device", response_class=RedirectResponse)
@@ -107,11 +112,11 @@ async def remove_device(username: str = Form(...), device_name: str = Form(...))
 
 @app.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
-    return templates.TemplateResponse("register.html", {"request": request})
+    return templates.TemplateResponse("register.html", {"request": request, "username": ""})
 
 @app.get("/solar-check", response_class=HTMLResponse)
-async def solar_check(request: Request):
-    return templates.TemplateResponse("solar_check.html", {"request": request})
+async def solar_check(request: Request, username: str):
+    return templates.TemplateResponse("solar_check.html", {"request": request, "username": username})
 
 
 @app.post("/get-solar-data", response_class=HTMLResponse)

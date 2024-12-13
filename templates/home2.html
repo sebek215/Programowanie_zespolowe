@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            background-color: #00d856;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .weather-card, .production-card, .device-card {
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .weather-card {
+            background: #00d856;
+            color: white;
+        }
+
+        .weather-card p {
+            margin: 5px 0;
+        }
+
+        .device-title {
+            font-weight: bold;
+        }
+
+        .device-slider {
+            width: 100%;
+        }
+
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            background: #ffcccb;
+            border: 1px solid #ff0000;
+            border-radius: 10px;
+            color: #ff0000;
+        }
+
+        .status-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .button {
+            background-color: #00d856;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+
+        .dropdown {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .dropdown-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .graph-placeholder {
+            height: 150px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+            color: #555;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Sunny Bunny</h1>
+            <p>Bonifacjusza 14 | 16kWp</p>
+        </div>
+
+        <div class="weather-card">
+            <p><strong>Temp:</strong> 23°C</p>
+            <p><strong>Humidity:</strong> 10%</p>
+            <p><strong>Current Production:</strong> 12,800W</p>
+        </div>
+
+        <div class="production-card">
+            <h2>Production</h2>
+            <div class="dropdown-container">
+                <select class="dropdown">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly">Monthly</option>
+                </select>
+                <input type="date" class="dropdown">
+            </div>
+            <div class="graph-placeholder">Graph Placeholder</div>
+            <div class="status-card">
+                <span>Show Production</span>
+                <input type="checkbox" checked>
+            </div>
+            <div class="status-card">
+                <span>Show Usage</span>
+                <input type="checkbox">
+            </div>
+        </div>
+
+        <div class="device-card">
+            <h3 class="device-title">Battery</h3>
+            <p>Mode: <strong>Auto</strong></p>
+            <p>Charge: <strong>30%</strong></p>
+            <input type="range" class="device-slider" min="0" max="100" value="30">
+            <p>Charge Time: <strong>06:00 to 15:00</strong></p>
+        </div>
+
+        <div class="device-card">
+            <h3 class="device-title">Washing Machine</h3>
+            <p>Mode: <strong>Eco</strong></p>
+            <p>Status: <strong>Running</strong></p>
+            <p>Time Remaining: <strong>30 min</strong></p>
+        </div>
+
+        <div class="device-card">
+            <h3 class="device-title">Fridge</h3>
+            <p>Vacation Mode: <strong>Off</strong></p>
+            <div class="alert">
+                <p><strong>Error:</strong> Lost connection to WiFi</p>
+            </div>
+        </div>
+
+        <div class="device-card">
+            <h3 class="device-title">AC</h3>
+            <p>Status: <strong>On</strong></p>
+            <p>Temperature: <strong>25°C</strong></p>
+            <button class="button">Eco Mode</button>
+        </div>
+
+        <div class="device-card">
+            <h3 class="device-title">Car Charger</h3>
+            <p>Charge: <strong>98%</strong></p>
+            <p>Time Remaining: <strong>30 min</strong></p>
+            <button class="button">Eco Mode</button>
+        </div>
+    </div>
+</body>
+</html>

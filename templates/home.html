@@ -6,44 +6,86 @@
 </head>
 <body class="home-bg">
     <div class="screen">
+        <!-- Existing Header Section -->
         <div class="header">
             <h1>Welcome, {{ username }}</h1>
             <p>Your Smart Home Dashboard</p>
-            <form method="get" action="/">
-                <button type="submit" class="logout-button">Logout</button>
-            </form>
+            <form method="get" action="/"><button type="submit" class="logout-button">Logout</button></form>
         </div>
 
+        <!-- New Sunny Bunny Section -->
+        <div class="container">
+            <div class="header">
+                <h1>Sunny Bunny</h1>
+                <p>Bonifacjusza 14 | 16kWp</p>
+            </div>
+
+            <div class="weather-card">
+                <p><strong>Temp:</strong> 23°C</p>
+                <p><strong>Humidity:</strong> 10%</p>
+                <p><strong>Current Production:</strong> 12,800W</p>
+            </div>
+
+            <div class="production-card">
+                <h2>Production</h2>
+                <div class="dropdown-container">
+                    <select class="dropdown">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                    </select>
+                    <input type="date" class="dropdown">
+                </div>
+                <div class="graph-placeholder">Graph Placeholder</div>
+                <div class="status-card-container">
+                    <span>Show Production</span>
+                    <input type="checkbox" checked>
+                    <span>Show Usage</span>
+                    <input type="checkbox" checked>
+                </div>
+                <div class="device-card">
+                    <h3 class="device-title">Battery</h3>
+                    <p>Mode: <strong>Auto</strong></p>
+                    <p>Charge: <strong>30%</strong></p>
+                    <input type="range" class="device-slider" min="0" max="100" value="30">
+                    <p>Charge Time: <strong>06:00 to 15:00</strong></p>
+                </div>
+                
+            </div>
+        </div>
+
+        <!-- Devices Section -->
         <div class="devices-container">
             <h2>Your Devices</h2>
-
-            {% for device in devices %}
-            <div class="device-card">
-                <div class="device-header">
-                    <h3>{{ device[0] }}</h3>
-                    <form method="post" action="/remove_device" style="display: inline;">
-                        <input type="hidden" name="username" value="{{ username }}">
-                        <input type="hidden" name="device_name" value="{{ device[0] }}">
-                        <button type="submit" class="remove-button">Remove</button>
-                    </form>
+            <ul>
+                {% for device in devices %}
+                <div class="device-card">
+                    <div class="device-header">
+                        <h3>{{ device[0] }}</h3>
+                        <form method="post" action="/remove_device" style="display: inline;">
+                            <input type="hidden" name="username" value="{{ username }}">
+                            <input type="hidden" name="device_name" value="{{ device[0] }}">
+                            <button type="submit" class="remove-button">Remove</button>
+                        </form>
+                    </div>
+    
+                    <div class="device-info">
+                        <p><strong>Energy Usage:</strong> {{ device[2] if device[2] else 'N/A' }} kWh</p>
+                        <p><strong>Uptime:</strong> {{ device[3] if device[3] else 'N/A' }}</p>
+    
+                        <label for="device-{{ loop.index }}-slider"><strong>Power Control</strong></label>
+                        <input type="range" id="device-{{ loop.index }}-slider" name="power-level" min="0" max="100" class="device-slider">
+    
+                        <p><strong>Schedule:</strong> 
+                            <span>08:00 AM - 10:00 PM</span> <!-- Placeholder schedule -->
+                        </p>
+                    </div>
                 </div>
-
-                <div class="device-info">
-                    <p><strong>Energy Usage:</strong> {{ device[2] if device[2] else 'N/A' }} kWh</p>
-                    <p><strong>Uptime:</strong> {{ device[3] if device[3] else 'N/A' }}</p>
-
-                    <label for="device-{{ loop.index }}-slider"><strong>Power Control</strong></label>
-                    <input type="range" id="device-{{ loop.index }}-slider" name="power-level" min="0" max="100" class="device-slider">
-
-                    <p><strong>Schedule:</strong> 
-                        <span>08:00 AM - 10:00 PM</span> <!-- Placeholder schedule -->
-                    </p>
-                </div>
-            </div>
-            {% endfor %}
-
+                {% endfor %}
+            </ul>
         </div>
 
+        <!-- Add Device Section -->
         <div class="add-device">
             <h2>Add New Device</h2>
             <form method="post" action="/add_device">
@@ -53,9 +95,11 @@
             </form>
         </div>
 
+        <!-- Solar Analysis Section -->
         <div class="solar-analysis">
             <h2>Solar Analysis</h2>
             <form method="get" action="/solar-check">
+                <input type="hidden" name="username" value="{{ username }}">
                 <button type="submit" class="special-button">Check Sunlight in Your Area</button>
             </form>
         </div>
