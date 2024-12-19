@@ -230,3 +230,76 @@ body.solar-bg {
     border-radius: 10px;
     background-color: #f9f9f9;
 }
+
+/*górny panel z logo i opcjami */
+.optionP {
+    display: inline-flex;
+flex-direction: row;
+flex-wrap: wrap;
+justify-content: space-between;
+align-items: flex-start;
+align-content: space-between;
+}
+
+
+
+.top-panel {
+    width: 360px; /* Same width as .screen */
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.8); /* Light transparent background */
+    border-radius: 16px; /* Rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    text-align: center; /* Center content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Space between child elements */
+}
+
+.logo-container img {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    border-radius: 8px; /* Slightly rounded corners for the image */
+}
+
+.hauses-button button {
+    width: 100%; 
+    padding: 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007BFF; /* Blue button */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.hauses-button button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#houses-list {
+    width: 100%;
+}
+
+#houses-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#houses-list li {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#houses-list li:hover {
+    background-color: #f0f0f0; /* Light gray on hover */
+}

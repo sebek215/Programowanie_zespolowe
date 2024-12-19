@@ -1,56 +1,80 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>SmartHome - Dashboard</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body class="home-bg">
-    <div class="screen">
-        <!-- Existing Header Section -->
-        <div class="header">
-            <h1>Welcome, {{ username }}</h1>
-            <p>Your Smart Home Dashboard</p>
-            <form method="get" action="/"><button type="submit" class="logout-button">Logout</button></form>
+
+    <!-- Górny panel -->
+    <header class="top-panel">
+        <div class="logo-container">
+            <img src="/static/images/sunny-bunny-logo-small.png" alt="Sunny Bunny Logo small" class="">
         </div>
+        <!--przycisk smart domy -->
+        <div class="hauses-button">
+            <button id="">Smart Houses</button>
+        </div>
+        <!-- Lista domów-->
+        <div id="houses-list" class="dropdown">
+            <ul>
+                <li id="house-1" onclick="showHouseInfo('house-1')">Dom 1</li>
+                <li id="house-2" onclick="showHouseInfo('house-2')">Dom 2</li>
+                <li id="house-3" onclick="showHouseInfo('house-3')">Dom 3</li>
+                <!-- Dodaj więcej domów w razie potrzeby -->
+            </ul>
+        </div>
+        <div class="screen">
 
-        <!-- New Sunny Bunny Section -->
-        <div class="container">
+            <!-- Existing Header Section -->
             <div class="header">
-                <h1>Sunny Bunny</h1>
-                <p>Bonifacjusza 14 | 16kWp</p>
+                <h1>Welcome, {{ username }}</h1>
+                <p>Your Smart Home Dashboard</p>
+                <form method="get" action="/"><button type="submit" class="logout-button">Logout</button></form>
             </div>
 
-            <div class="weather-card">
-                <p><strong>Temp:</strong> 23°C</p>
-                <p><strong>Humidity:</strong> 10%</p>
-                <p><strong>Current Production:</strong> 12,800W</p>
-            </div>
+            <!-- New Sunny Bunny Section -->
+            <div id="house-info" class="container">
+                <!-- Default or initial content here -->
+                <div class="header">
+                    <h1>Sunny Bunny</h1>
+                    <p>Bonifacjusza 14 | 16kWp</p>
+                </div>
 
-            <div class="production-card">
-                <h2>Production</h2>
-                <div class="dropdown-container">
-                    <select class="dropdown">
-                        <option value="daily">Daily</option>
-                        <option value="weekly">Weekly</option>
-                        <option value="monthly">Monthly</option>
-                    </select>
-                    <input type="date" class="dropdown">
+                <div class="weather-card">
+                    <p><strong>Temp:</strong></p>
+                    <p><strong>Humidity:</strong></p>
+                    <p><strong>Current Production:</strong></p>
                 </div>
-                <div class="graph-placeholder">Graph Placeholder</div>
-                <div class="status-card-container">
-                    <span>Show Production</span>
-                    <input type="checkbox" checked>
-                    <span>Show Usage</span>
-                    <input type="checkbox" checked>
+
+                <div class="production-card">
+                    <h2>Production</h2>
+                    <div class="dropdown-container">
+                        <select class="dropdown">
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                        </select>
+                        <input type="date" class="dropdown">
+                    </div>
+                    <div class="graph-placeholder">Graph Placeholder</div>
+                    <div class="status-card-container">
+                        <span>Show Production</span>
+                        <input type="checkbox" checked>
+                        <span>Show Usage</span>
+                        <input type="checkbox" checked>
+                    </div>
+                    <div class="device-card">
+                        <h3 class="device-title">Battery</h3>
+                        <p>Mode: <strong>Auto</strong></p>
+                        <p>Charge: <strong>30%</strong></p>
+                        <input type="range" class="device-slider" min="0" max="100" value="30">
+                        <p>Charge Time: <strong>06:00 to 15:00</strong></p>
+                    </div>
+
                 </div>
-                <div class="device-card">
-                    <h3 class="device-title">Battery</h3>
-                    <p>Mode: <strong>Auto</strong></p>
-                    <p>Charge: <strong>30%</strong></p>
-                    <input type="range" class="device-slider" min="0" max="100" value="30">
-                    <p>Charge Time: <strong>06:00 to 15:00</strong></p>
-                </div>
-                
             </div>
         </div>
 
@@ -68,15 +92,16 @@
                             <button type="submit" class="remove-button">Remove</button>
                         </form>
                     </div>
-    
+
                     <div class="device-info">
                         <p><strong>Energy Usage:</strong> {{ device[2] if device[2] else 'N/A' }} kWh</p>
                         <p><strong>Uptime:</strong> {{ device[3] if device[3] else 'N/A' }}</p>
-    
+
                         <label for="device-{{ loop.index }}-slider"><strong>Power Control</strong></label>
-                        <input type="range" id="device-{{ loop.index }}-slider" name="power-level" min="0" max="100" class="device-slider">
-    
-                        <p><strong>Schedule:</strong> 
+                        <input type="range" id="device-{{ loop.index }}-slider" name="power-level" min="0" max="100"
+                            class="device-slider">
+
+                        <p><strong>Schedule:</strong>
                             <span>08:00 AM - 10:00 PM</span> <!-- Placeholder schedule -->
                         </p>
                     </div>
@@ -103,6 +128,45 @@
                 <button type="submit" class="special-button">Check Sunlight in Your Area</button>
             </form>
         </div>
-    </div>
+        </div>
+
+        <script>
+            function showHouseInfo(houseId) {
+                const houseInfo = {
+                    'house-1': {
+                        title: 'Szczecin',
+                        address: 'Bonifacjusza 14',
+                        temp: '23°C',
+                        humidity: '10%',
+                        production: '12,800W'
+                    },
+                    'house-2': {
+                        title: 'Warsaw',
+                        address: 'Marszałkowska 1',
+                        temp: '20°C',
+                        humidity: '50%',
+                        production: '10,000W'
+                    },
+                    'house-3': {
+                        title: 'Krakow',
+                        address: 'Rynek Główny 1',
+                        temp: '18°C',
+                        humidity: '60%',
+                        production: '8,500W'
+                    },
+                    // Add more houses as needed
+                };
+
+                const info = houseInfo[houseId];
+
+                document.querySelector('#house-info .header h1').textContent = info.title;
+                document.querySelector('#house-info .header p').textContent = info.address;
+                document.querySelector('#house-info .weather-card p:nth-child(1) strong').textContent = `Temp: ${info.temp}`;
+                document.querySelector('#house-info .weather-card p:nth-child(2) strong').textContent = `Humidity: ${info.humidity}`;
+                document.querySelector('#house-info .weather-card p:nth-child(3) strong').textContent = `Current Production: ${info.production}`;
+            }
+        </script>
+
 </body>
+
 </html>

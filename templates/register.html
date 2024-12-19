@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>SmartHome - Register</title>
     <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body class="register-bg">
     <div class="screen">
+        <!-- Logo i nagłówek -->
+        <div class="header" style="padding-top: 20px;">
+            <img src="/static/images/sunny-bunny-logo.png" alt="Sunny Bunny Logo" class="logo">
+            <hr class="separator">
+        </div>
+
         <div class="header">
             <h1>SmartHome</h1>
             <p>Create your account to start managing your home devices.</p>
@@ -19,7 +27,7 @@
             </form>
             <p>Already have an account? <a href="/">Login here</a></p>
         </div>
-      
+
         {% if request.query_params.get('error') %}
         <p class="error">{{ request.query_params.get('error') }}</p>
         {% endif %}
@@ -28,4 +36,5 @@
         {% endif %}
     </div>
 </body>
+
 </html>
