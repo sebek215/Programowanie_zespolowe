@@ -16,8 +16,8 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # Replace with your Google API key
-GOOGLE_API_KEY = "AIzaSyAboIDReezqT3bAkS8w8nUV6X9IBRCa3K4"
-GOOGLE_SOLAR_API_KEY = "AIzaSyA0oYVrlCJUgO5pwlRcTcUeBroVlJhzojk"
+GOOGLE_API_KEY = "1"
+GOOGLE_SOLAR_API_KEY = "1"
 
 # File paths for user database
 USER_DB = "users_db.csv"

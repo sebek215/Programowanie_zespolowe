@@ -1,17 +1,28 @@
 import sqlite3
 
-# Connect to the database
-conn = sqlite3.connect("devices.db")
+# Initialize SQLite for devices
+conn = sqlite3.connect("devices.db", check_same_thread=False)
 cursor = conn.cursor()
 
-# Add new columns to the 'devices' table
-try:
-    cursor.execute("ALTER TABLE devices ADD COLUMN energy_usage REAL DEFAULT 0;")
-    cursor.execute("ALTER TABLE devices ADD COLUMN uptime TEXT DEFAULT '00:00';")
-    conn.commit()
-    print("Columns added successfully!")
-except sqlite3.OperationalError as e:
-    print(f"Error: {e}")
+# Create table with house_id if it doesn't exist
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS devices (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT NOT NULL,
+    house_id TEXT NOT NULL,
+    device_name TEXT NOT NULL,
+    energy_usage REAL DEFAULT 0,  -- Energy in kWh
+    uptime TEXT DEFAULT '00:00'   -- Uptime in HH:MM format
+)
+""")
+conn.commit()
 
-# Close the connection
-conn.close()
+# Alter table to add house_id if it doesn't exist
+try:
+    cursor.execute("ALTER TABLE devices ADD COLUMN house_id TEXT;")
+except sqlite3.OperationalError as e:
+    if 'duplicate column name: house_id' not in str(e):
+        raise e
+
+# Commit changes
+conn.commit()
